@@ -1,5 +1,6 @@
 const UserModel = require("../models/user.model")
 const ArticleModel = require("../models/article.model")
+const ArticleDetailsModel = require("../models/article_details.model")
 const Category = require("../models/category.model")
 
 exports.addCategory = (req, res)=>{
@@ -61,5 +62,35 @@ exports.updateUser= (req, res)=>{
 }
 
 exports.createArticle = (req, res)=>{
-	
+	ArticleModel.saveArticle(req.body)
+		.then(article=>{
+			res.status(200).send(article)
+		}).catch(err=>{
+			res.status(500).send(err)
+		})
+}
+
+exports.getArticles = (req, res)=>{
+	let limit = req.query.limit && req.query.limit <= 100 ? parseInt(req.query.limit) : 10;
+    let page = 0;
+    if (req.query) {
+        if (req.query.page) {
+            req.query.page = parseInt(req.query.page);
+            page = Number.isInteger(req.query.page) ? req.query.page : 0;
+        }
+    }
+	ArticleModel.list(limit, page).then((result)=>{
+		res.status(200).send(result)
+	}).catch(err=>{
+			res.status(500).send(err)
+		})
+}
+
+exports.getArticle = (req, res)=>{
+	ArticleModel.getById(req.params.id)
+		.then(article=>{
+			res.status(200).send(article)
+		}).catch(err=>{
+			res.status(500).send(err)
+		})
 }

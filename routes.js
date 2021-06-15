@@ -14,4 +14,10 @@ exports.routesConfig = function(app){
 	app.get("/user/:id", [appController.user])
 
 	app.patch("/user/:id", [appController.updateUser])
+
+	app.post("/article", [appController.createArticle])
+
+	app.get("/articles", [appController.getArticles])
+
+	app.get("/article/:id", [appController.getArticle])
 }

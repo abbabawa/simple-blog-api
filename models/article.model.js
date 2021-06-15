@@ -5,7 +5,8 @@ const Schema = mongoose.Schema
 const articleSchema = new Schema({
 	title: String,
 	category: {type: Schema.Types.ObjectId, ref: 'Category', required: true},
-	user: {type: Schema.Types.ObjectId, ref: 'User', required: true}
+	user: {type: Schema.Types.ObjectId, ref: 'User', required: true},
+	details: [String]
 })
 
 const Article = mongoose.model('Articles', articleSchema)

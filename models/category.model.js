@@ -21,3 +21,13 @@ exports.list = ()=>{
 		}
 	})
 }
+
+exports.category = (id)=>{
+	return Category.find({_id: id}, (err, category)=>{
+		if(err){
+			return err
+		}else{
+			return category[0]
+		}
+	})
+}

@@ -1,4 +1,4 @@
-const mongoose = require('../common/services/mongoose.service')
+const mongoose = require('../common/services/mongoose.service').mongoose
 
 const Schema = mongoose.Schema
 
@@ -8,9 +8,9 @@ const CategorySchema = new Schema({
 
 const Category = mongoose.model('Categories', CategorySchema)
 
-exports.addCategory = (category)=>{
-	const category = new Category({category})
-	return category.save()
+exports.saveCategory = (category)=>{
+	const cat = new Category({name: category})
+	return cat.save()
 }
 
 exports.list = ()=>{

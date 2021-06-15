@@ -1,14 +1,19 @@
-const mongoose = require('../common/services/mongoose.service')
+const mongoose = require('../common/services/mongoose.service').mongoose
 
 const Schema = mongoose.Schema
 
 const articleSchema = new Schema({
 	title: String,
-	category: {Schema.Types.ObjectId, ref: Category, required: true},
-	user: {Schema.Types.ObjectId, ref: User, required: true}
+	category: {type: Schema.Types.ObjectId, ref: 'Category', required: true},
+	user: {type: Schema.Types.ObjectId, ref: 'User', required: true}
 })
 
 const Article = mongoose.model('Articles', articleSchema)
+
+exports.saveArticle = (article)=>{
+	const obj = new Article(article)
+	return obj.save()
+}
 
 exports.list = (perPage, page)=>{
 	return new Promise((resolve, reject)=>{

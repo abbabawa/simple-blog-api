@@ -42,3 +42,7 @@ exports.getByCategory = (category)=>{
 		return articles
 	})
 }
+
+exports.updateArticle = (id, updateData)=>{
+	return Article.findOneAndUpdate({_id: id}, updateData)
+}

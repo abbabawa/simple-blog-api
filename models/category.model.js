@@ -31,3 +31,7 @@ exports.category = (id)=>{
 		}
 	})
 }
+
+exports.patchById = (id, data)=>{
+	return Category.findOneAndUpdate({_id: id}, data)
+}

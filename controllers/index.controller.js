@@ -26,6 +26,15 @@ exports.category = (req, res)=>{
 		})
 }
 
+exports.updateCategory = (req, res)=>{
+	Category.patchById(req.params.id, req.body)
+		.then(result=>{
+			res.status(200).send(result)
+		}).catch(err=>{
+			res.status(500).send(err)
+		})
+}
+
 exports.createUser = (req, res)=>{
 	UserModel.saveUser(req.body)
 		.then(result=>{
@@ -90,6 +99,15 @@ exports.getArticle = (req, res)=>{
 	ArticleModel.getById(req.params.id)
 		.then(article=>{
 			res.status(200).send(article)
+		}).catch(err=>{
+			res.status(500).send(err)
+		})
+}
+
+exports.editArticle = (req, res)=>{
+	ArticleModel.updateArticle(req.params.id, req.body)
+		.then(result=>{
+			res.status(200).send(result)
 		}).catch(err=>{
 			res.status(500).send(err)
 		})

@@ -7,6 +7,8 @@ exports.routesConfig = function(app){
 
 	app.get("/category/:id", [appController.category])
 
+	app.patch("/category/:id", [appController.updateCategory])
+
 	app.post("/user", [appController.createUser])
 
 	app.get("/users", [appController.users])
@@ -20,4 +22,6 @@ exports.routesConfig = function(app){
 	app.get("/articles", [appController.getArticles])
 
 	app.get("/article/:id", [appController.getArticle])
+
+	app.patch("/article/:id", [appController.editArticle])
 }

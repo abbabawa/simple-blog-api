@@ -7,7 +7,8 @@ const userSchema = new Schema({
 	lastName: String,
 	email: String,
 	password: String,
-	permissionLevel: Number
+	permissionLevel: Number,
+	userType: Number
 })
 
 const User = mongoose.model('Users', userSchema)
@@ -22,6 +23,7 @@ exports.findById = (id)=>{
 		result = result.toJSON()
 		delete result._id
 		delete result.__v
+		delete result.password
 		return result
 	})
 }

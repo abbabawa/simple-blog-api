@@ -3,6 +3,8 @@ const ArticleModel = require("../models/article.model")
 const ArticleDetailsModel = require("../models/article_details.model")
 const Category = require("../models/category.model")
 
+const crypto = require('crypto')
+
 exports.addCategory = (req, res)=>{
 	Category.saveCategory(req.body.name).then(result=>{
 		res.status(201).send({id: result._id})
@@ -36,6 +38,9 @@ exports.updateCategory = (req, res)=>{
 }
 
 exports.createUser = (req, res)=>{
+	let salt = crypto.randomBytes(16).toString("base64")
+	let hash = crypto.createHmac('sha512', salt).update(req.body.password).digest('base64')
+	req.body.password = salt+"$"+hash
 	UserModel.saveUser(req.body)
 		.then(result=>{
 			res.status(200).send(result)
@@ -108,6 +113,15 @@ exports.editArticle = (req, res)=>{
 	ArticleModel.updateArticle(req.params.id, req.body)
 		.then(result=>{
 			res.status(200).send(result)
+		}).catch(err=>{
+			res.status(500).send(err)
+		})
+}
+
+exports.getArticlesByCategory = (req, res)=>{
+	ArticleModel.getByCategory(req.params.category)
+		.then(articles=>{
+			res.status(200).send(articles)
 		}).catch(err=>{
 			res.status(500).send(err)
 		})
